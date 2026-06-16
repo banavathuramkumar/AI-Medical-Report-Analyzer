@@ -27,7 +27,7 @@ mongoose.connect(MONGO_URI)
 connectKafka();
 
 // Endpoints
-app.post("/upload", optionalAuth, upload.single("report"), async (req, res) => {
+app.post("/upload", requireAuth, upload.single("report"), async (req, res) => {
   try {
     let fileName = req.body.fileName || "Direct Text Input";
     let extractedText = "";

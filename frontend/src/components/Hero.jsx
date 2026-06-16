@@ -1,6 +1,8 @@
 import { ArrowDown, Shield, Eye, BarChart3 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   const features = [
     { icon: Shield, label: "Private", description: "Data never leaves your device" },
     { icon: Eye, label: "Clear", description: "Simple explanations for complex terms" },
@@ -8,17 +10,15 @@ const Hero = () => {
   ];
 
   return (
-    <section className="relative overflow-hidden py-20 lg:py-28">
-      {/* Background gradient */}
+    <section className="relative overflow-hidden pt-4 pb-12 lg:pt-6 lg:pb-20">
       <div className="absolute inset-0 bg-gradient-to-b from-accent/30 via-background to-background" />
       
-      {/* Floating decoration */}
       <div className="absolute top-20 right-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl animate-float" />
       <div className="absolute bottom-10 left-10 h-48 w-48 rounded-full bg-health-info/10 blur-3xl animate-float" style={{ animationDelay: "1s" }} />
       
       <div className="container relative">
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-health-normal-bg px-4 py-1.5 text-sm font-medium text-health-normal animate-fade-in">
+        <div className="mx-auto mt-[10px] max-w-3xl text-center">
+          <div className="mb-2 inline-flex items-center gap-2 rounded-full bg-health-normal-bg px-4 py-1.5 text-sm font-medium text-health-normal animate-fade-in">
             <Shield className="h-4 w-4" />
             <span>No data uploaded • 100% Private</span>
           </div>
@@ -35,13 +35,13 @@ const Hero = () => {
           </p>
           
           <div className="mb-16 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            <a 
-              href="#upload" 
+            <button 
+              onClick={() => navigate("/upload")}
               className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
             >
               <span className="font-medium">Get Started</span>
               <ArrowDown className="h-4 w-4 animate-bounce" />
-            </a>
+            </button>
           </div>
           
           <div className="grid gap-6 sm:grid-cols-3 animate-slide-up" style={{ animationDelay: "0.3s" }}>

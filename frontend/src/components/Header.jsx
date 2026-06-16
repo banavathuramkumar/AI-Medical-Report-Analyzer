@@ -1,12 +1,14 @@
-import { Shield, FileText, History, LogOut, LogIn } from "lucide-react";
+import { Shield, FileText, History, LogOut, LogIn, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate, Link } from "react-router-dom";
 
-const Header = ({ isLoggedIn, user, onOpenAuth, onOpenHistory, onLogout }) => {
+const Header = ({ isLoggedIn, user, onLogout }) => {
+  const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-lg">
       <div className="container flex h-16 items-center justify-between">
         {/* App Brand */}
-        <div className="flex items-center gap-3">
+        <Link to="/" className="flex items-center gap-3 cursor-pointer">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-soft">
             <FileText className="h-5 w-5 text-primary-foreground" />
           </div>
@@ -14,7 +16,7 @@ const Header = ({ isLoggedIn, user, onOpenAuth, onOpenHistory, onLogout }) => {
             <h1 className="text-lg font-semibold text-foreground">AI Medical Report Analyzer</h1>
             <p className="text-xs text-muted-foreground">Private & Secure Analysis</p>
           </div>
-        </div>
+        </Link>
         
         {/* Navigation Actions */}
         <div className="flex items-center gap-4">
@@ -28,7 +30,16 @@ const Header = ({ isLoggedIn, user, onOpenAuth, onOpenHistory, onLogout }) => {
               <Button 
                 variant="outline" 
                 size="sm" 
-                onClick={onOpenHistory}
+                onClick={() => navigate("/upload")}
+                className="flex items-center gap-1.5"
+              >
+                <Upload className="h-4 w-4" />
+                Upload
+              </Button>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => navigate("/history")}
                 className="flex items-center gap-1.5"
               >
                 <History className="h-4 w-4" />
@@ -51,7 +62,7 @@ const Header = ({ isLoggedIn, user, onOpenAuth, onOpenHistory, onLogout }) => {
             <Button 
               variant="outline" 
               size="sm" 
-              onClick={onOpenAuth}
+              onClick={() => navigate("/login")}
               className="flex items-center gap-1.5"
             >
               <LogIn className="h-4 w-4" />
