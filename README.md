@@ -286,7 +286,7 @@ Docker automatically starts:
 Open:
 
 ```
-http://localhost
+http://localhost:3000
 ```
 
 Live:
@@ -319,7 +319,7 @@ Base Path:
 |---|---|---|
 | POST | /register | Create account |
 | POST | /login | User login |
-| GET | /me | User details |
+| GET | /profile | User profile details (requires token) |
 
 ---
 
@@ -333,23 +333,15 @@ Base Path:
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | /upload | Upload report |
-| GET | /status/:id | Check processing status |
-| GET | /list | Get reports |
+| POST | /upload | Upload report (requires token) |
+| GET | /status/:id | Check processing status & get analysis |
+| GET | /history | Get reports history (requires token) |
 
 ---
 
 ## AI Analysis
 
-Base Path:
-
-```
-/ai
-```
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | /result/:reportId | Get AI analysis |
+AI analysis results are stored directly on the report document and can be retrieved using the `/reports/status/:id` endpoint once the processing status becomes `completed`. The insights will be available in the `analysisResult` field of the response.
 
 ---
 
@@ -402,7 +394,7 @@ docker exec -it medical-kafka kafka-topics \
 | GEMINI_API_KEY | Google Gemini API key |
 | HF_API_KEY | HuggingFace API key |
 | MONGO_URI | MongoDB connection URL |
-| KAFKA_BROKER | Kafka server address |
+| KAFKA_BROKERS | Kafka server addresses (comma-separated) |
 | PORT | Service port |
 
 ---
@@ -436,16 +428,14 @@ npm test
 
 # 🛠️ Troubleshooting
 
-## Kafka Error
+## Kafka & Cluster ID Mismatch Error
 
-If Kafka fails:
+If Kafka fails to start (commonly due to an `InconsistentClusterIdException` after containers restart):
 
 ```bash
-docker compose down
+docker compose down -v
 
-docker volume rm medicalreportanalyzer_kafka-data
-
-docker compose up -d
+docker compose up --build
 ```
 
 ---
