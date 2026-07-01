@@ -3,7 +3,7 @@
 ## 🚀 Live Demo
 
 🌐 **Live Application:**  
-https://ai-medical-report-analyzer-u7d6.vercel.app/
+http://100.55.82.247/
 
 ---
 
